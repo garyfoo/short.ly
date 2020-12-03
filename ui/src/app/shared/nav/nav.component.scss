@@ -1,0 +1,9 @@
+.shortly-nav__side {
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    width: 100%;
+    .btn {
+      float: right;
+    }
+  }
+}

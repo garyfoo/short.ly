@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+.shortlink {
+  &-item {
+    display: block;
+    padding: 12px;
+    &:hover {
+      text-decoration: none;
+    }
+    &--ACTIVE {
+      background-color: #fff;
+    }
+    &--title {
+      color: #212529;
+    }
+    &--created-date {
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+  }
+  &--MAIN {
+    font-size: 12px;
+  }
+  &--hash {
+    font-weight: bold;
+  }
+  &-item + &-item {
+    border-top: 1px solid #d3d4d7;
+  }
+  &-list {
+    min-height: calc(100vh - 56px);
+  }
+}
+
+.grey-bg {
+  background: #f5f6f7;
+}
+
+.loading {
+  animation: spin 2s linear infinite;
+  font-size: 1rem;
+  font-size: 24px;
+  color: white;
+}
+@keyframes spin {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

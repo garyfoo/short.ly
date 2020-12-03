@@ -1,0 +1,40 @@
+<div *ngIf="isLoading$ | async">Loading...</div>
+<div class="row no-gutters" *ngIf="!(isLoading$ | async)">
+  <div class="col-sm-12 order-md-last col-md-9 p-4">
+    <div *ngIf="links.length === 0" class="text-center">
+      <p class="mt-5">
+        つ ◕_◕ ༽つ Seems like you haven't create any shortened links. つ ◕_◕ ༽つ
+      </p>
+      <br />
+      Start by creating one
+      <a
+        href=""
+        (click)="$event.stopPropagation(); $event.preventDefault(); open()"
+        >here</a
+      >.
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="col-sm-12 col-md-3 order-md-first grey-bg shortlink-list">
+    <div *ngFor="let shortLink of links">
+      <a
+        [routerLink]="[shortLink.id]"
+        class="shortlink-item"
+        routerLinkActive="shortlink-item--ACTIVE"
+        ><time
+          class="shortlink-item--created-date text-muted small text-uppercase"
+          datetime="{{ shortLink.created_at | date: 'yy-M-d' }}"
+          >{{ shortLink.created_at | date: "MMM d" }}</time
+        >
+        <div class="shortlink-item--title">{{ shortLink.title }}</div>
+        <div>
+          <div class="shortlink--MAIN">
+            short.ly<span class="shortlink--hash"
+              >/{{ shortLink.fragment }}</span
+            >
+          </div>
+        </div></a
+      >
+    </div>
+  </div>
+</div>

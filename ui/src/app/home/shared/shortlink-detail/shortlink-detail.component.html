@@ -1,0 +1,39 @@
+<div class="shortlink-detail" *ngIf="shortLink">
+  <div>
+    <time class="item-detail--created-date small text-muted text-uppercase"
+      >CREATED {{ shortLink.created_at | date: "MMM d, h:mm a" }}</time
+    >
+    <div class="item-detail--title">{{ shortLink.title }}</div>
+    <div>
+      <a
+        class="item-detail--url small text-muted"
+        href="{{ shortLink.long_url }}"
+        target="_blank"
+        >{{ shortLink.long_url }}</a
+      >
+    </div>
+  </div>
+  <div class="mt-4">
+    <a href="{{ shortLink.link }}" target="_blank"
+      >short.ly/{{ shortLink.fragment }}</a
+    >
+    <div class="d-inline">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm text-uppercase ml-3"
+        (click)="copy(shortLink.link)"
+      >
+        <span *ngIf="isVisible; else elseBlock">Copied!</span>
+        <ng-template #elseBlock>COPY</ng-template>
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm text-uppercase ml-3"
+        (click)="open()"
+      >
+        EDIT
+      </button>
+    </div>
+  </div>
+  <hr />
+</div>

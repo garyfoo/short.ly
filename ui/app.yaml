@@ -1,0 +1,15 @@
+# [START runtime]
+runtime: nodejs12
+handlers:
+  # - url: /
+  #   static_files: dist/ui/index.html
+  #   upload: dist/ui/index.html
+  # - url: /
+  #   static_dir: dist/ui
+  - url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
+    static_files: dist/ui/\1
+    upload: dist/(.*)(|\.map)
+  - url: /(.*)
+    static_files: dist/ui/index.html
+    upload: dist/ui/index.html
+# [END runtime]

@@ -1,0 +1,135 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{ title }}</h4>
+  <button
+    type="button"
+    class="close"
+    aria-describedby="modal-title"
+    (click)="modal.dismiss()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="createLinkForm">
+    <div class="form-group">
+      <label for="titleTextInput" class="text-uppercase small text-muted"
+        >Title</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="titleTextInput"
+        formControlName="title"
+      />
+      <div
+        *ngIf="
+          controls.title.invalid &&
+          (controls.title.dirty || controls.title.touched)
+        "
+      >
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="controls.title.errors && controls.title.errors.required"
+        >
+          Title is required.
+        </div>
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="controls.title.errors && controls.title.errors.maxlength"
+        >
+          Title has exceed 100 characters.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="urlTextAreaInput" class="text-uppercase small text-muted"
+        >Long url</label
+      >
+      <textarea
+        class="form-control"
+        id="urlTextAreaInput"
+        rows="3"
+        formControlName="long_url"
+      ></textarea>
+      <p class="small text-muted mb-2">
+        Number of characters left:
+        {{ noOfCharsLeft() }}<br />
+      </p>
+      <div *ngFor="let error of errors">
+        <div class="invalid-feedback d-block text-capitalize">
+          {{ error.defaultMessage }}
+        </div>
+      </div>
+      <div
+        *ngIf="
+          controls.long_url.invalid &&
+          (controls.long_url.dirty || controls.long_url.touched)
+        "
+      >
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="controls.long_url.errors && controls.long_url.errors.required"
+        >
+          URL is required.
+        </div>
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="
+            controls.long_url.errors && controls.long_url.errors.invalidUrl
+          "
+        >
+          Please enter valid url.
+        </div>
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="controls.long_url.errors && controls.long_url.errors.maxlength"
+        >
+          Url has exceed 500 characters.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-danger"
+    [disabled]="isUpdating$ | async"
+    (click)="remove()"
+    *ngIf="isEdit"
+  >
+    Delete
+    <i
+      class="fas fa-spinner loading"
+      *ngIf="(isUpdating$ | async) && isRemove"
+    ></i>
+  </button>
+
+  <button
+    type="button"
+    id="submit"
+    class="btn btn-primary"
+    [disabled]="
+      createLinkForm.invalid || createLinkForm.pristine || (isUpdating$ | async)
+    "
+    ngbAutofocus
+    (click)="submit()"
+  >
+    <span *ngIf="!isEdit">Create</span>
+    <span *ngIf="isEdit">Update</span>
+    <i
+      class="fas fa-spinner loading ml-1"
+      *ngIf="(isUpdating$ | async) && isSubmit"
+    ></i>
+  </button>
+</div>
+<p *ngIf="isDevMode">
+  {{ createLinkForm.value | json }}
+  <br />
+  claim form valid: {{ createLinkForm.valid }}
+  <br />
+  claim form dirty: {{ createLinkForm.dirty }}
+  <br />
+  isRemove: {{ isRemove }} <br />
+  isSubmit: {{ isSubmit }}
+</p>
